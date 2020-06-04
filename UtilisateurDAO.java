@@ -22,7 +22,8 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
     
     public Utilisateur create(Utilisateur obj){
         try {
-            PreparedStatement prepare = this.connect.prepareStatement("INSERT INTO utilisateur (Email, Passwd, Nom, Prenom, Droit) VALUES(?, ?, ?, ?, ?)");
+            PreparedStatement prepare = this.connect
+                    .prepareStatement("INSERT INTO utilisateur (Email, Passwd, Nom, Prenom, Droit) VALUES(?, ?, ?, ?, ?)");
 				prepare.setString(1, obj.getEmail());
                                 prepare.setString(2, obj.getPasswd());
 				prepare.setString(3, obj.getNom());
@@ -39,6 +40,7 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
     }
     
     
+    //find par rapport au nom
     public List<Utilisateur> find(String nom){
         List<Utilisateur> obj= new ArrayList<>();
         Statement statement = null;
@@ -68,13 +70,73 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
         }catch(SQLException e){
             e.printStackTrace();
         }
-            
-		    
         
         return obj;
     }
 
+    
+     //find par rapport a l'email+passwd
+    public Utilisateur login(String email, String mdp){
+        Utilisateur obj= new Utilisateur();
+        ResultSet result  = null;
+        
+        try {
+            PreparedStatement prepare = this.connect
+                    .prepareStatement("SELECT * FROM utilisateur WHERE Email=? AND Passwd=? ");
+            prepare.setString(1, email);
+            prepare.setString(2, mdp);
+            
+            result=prepare.executeQuery();
+            
+            
+            
+            
+            while(result.next()){
+                
+                obj.setEmail(result.getString(2));
+                obj.setPasswd(result.getString(3));
+                obj.setNom(result.getString(4));
+                obj.setPrenom(result.getString(5));
+                obj.setDroit(result.getInt(6));
+            }    
+            
+            
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        return obj;
+    }
 
+    
+    
+    public Utilisateur update(Utilisateur obj){
+        try{
+            PreparedStatement prepare = this.connect
+                    .prepareStatement("UPDATE utilisateur SET Passwd=? WHERE Nom=?");
+            prepare.setString(1, obj.getPasswd());
+            prepare.setString(2,obj.getNom());
+            
+            prepare.executeUpdate();
+           
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return obj;
+    }
+    
+    public void delete(Utilisateur obj){
+        try{
+            PreparedStatement prepare = this.connect
+                    .prepareStatement("DELETE FROM utilisateur WHERE Nom =?");
+            prepare.setString(1, obj.getNom());
+            
+            prepare.executeUpdate ();
+            
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 }
 
    
