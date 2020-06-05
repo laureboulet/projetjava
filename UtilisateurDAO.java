@@ -92,7 +92,7 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
             
             
             while(result.next()){
-                
+                obj.setId(result.getInt(1));
                 obj.setEmail(result.getString(2));
                 obj.setPasswd(result.getString(3));
                 obj.setNom(result.getString(4));
@@ -100,6 +100,9 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
                 obj.setDroit(result.getInt(6));
             }    
             
+            if(obj.getEmail()==null){
+                System.out.print("Connexion refusée");
+            }
             
         }catch(SQLException e){
             e.printStackTrace();

@@ -34,8 +34,8 @@ public abstract class DAO<T> {
      * @param nom
      * @return 
      */
-    public abstract List<T> find(String nom);
-    /*
+    //public abstract T find(String nom);
+    
     //Met à jour les données
     //@param obj
     //@return T
@@ -43,6 +43,6 @@ public abstract class DAO<T> {
     
     //supprime dans la BDD
     //@param obj
-    public abstract void delete(T obj);*/
+    public abstract void delete(T obj);
     
 }

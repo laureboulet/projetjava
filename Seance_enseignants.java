@@ -11,19 +11,30 @@ package modele;
  */
 public class Seance_enseignants {
     //attribut
-    private int id_seance_enseignants;
+    private int id_seance;
+    private int id_enseignant;
     
     //constructeurs
     public Seance_enseignants(){}
     
-    public Seance_enseignants(int id_seance_salles){
-        this.id_seance_enseignants = id_seance_enseignants;
+    public Seance_enseignants(int id_seance, int id_enseignant){
+        this.id_seance = id_seance;
+        this.id_enseignant = id_enseignant;
     }
     //methodes
-    public int getId_seance_enseignants(){
-        return id_seance_enseignants;
+    public int getId_seance(){
+        return id_seance;
     }
-    public void setId_seance_enseignants(int id_seance_enseignants){
-        this.id_seance_enseignants = id_seance_enseignants;
+    
+    public int getId_enseignant(){
+        return id_enseignant;
+    }
+    
+    public void setId_seance(int id_seance){
+        this.id_seance = id_seance;
+    }
+    
+    public void setId_enseignant(int id_enseignant){
+        this.id_enseignant = id_enseignant;
     }
 }

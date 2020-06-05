@@ -41,7 +41,7 @@ public class Seance {
     public int getSemaine(){
         return semaine;
     }
-    public Date date(){
+    public Date getDate(){
         return date;
     }
     public int getHeure_debut(){
@@ -82,5 +82,9 @@ public class Seance {
     }
     public void setId_type(int id_type){
         this.id_type = id_type;
+    }
+
+    int getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
