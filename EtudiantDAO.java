@@ -48,7 +48,8 @@ public class EtudiantDAO extends DAO<Etudiant>{
             e.printStackTrace();
         }
         
-        return obj;    }
+        return obj;   
+    }
     
 
     

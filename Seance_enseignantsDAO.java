@@ -8,6 +8,8 @@ package modele;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -95,6 +97,34 @@ public class Seance_enseignantsDAO extends DAO<Seance_enseignants> {
             
             //System.out.println(obj.getId());
             
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        return obj;
+    }
+    
+    public List<Seance_enseignants> findList(int id){
+        List<Seance_enseignants> obj= new ArrayList<>();
+        ResultSet result  = null;
+        try {
+            
+            PreparedStatement prepare = this.connect
+                    .prepareStatement("SELECT * FROM seance_enseignants WHERE Id_enseignant =?");
+            prepare.setInt(1, id);
+            result=prepare.executeQuery();
+            
+            Seance_enseignants seance = null;
+            
+            while(result.next()){
+                seance = new Seance_enseignants();
+                seance.setId_seance(result.getInt(1));
+                seance.setId_enseignant(result.getInt(2));
+              
+                obj.add(seance);
+            }
+            
+           
         }catch(SQLException e){
             e.printStackTrace();
         }
