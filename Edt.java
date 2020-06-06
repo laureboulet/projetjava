@@ -29,31 +29,35 @@ import javax.swing.JTextArea;
  * @author laure et clemence
  */
 public class Edt extends JFrame{
-    private JTable tableau, tableau2;
-    private JPanel edt, recap;
-    private JTabbedPane emploi;
-    private JOptionPane etat;
-    private JMenuBar menu = new JMenuBar();
-    private JMenu cours = new JMenu("Cours");
-    private JMenu groupes = new JMenu("Groupes");
-    private JMenu enseignants = new JMenu("Enseignants");
-    private JMenu salles = new JMenu("Salles");
-    private JMenuItem cours1 = new JMenuItem("Modifier le type du cours");
-    private JMenuItem cours2 = new JMenuItem("Modifier le nom du cours");
-    private JMenuItem cours3 = new JMenuItem("Déplacer la séance");
-    private JMenuItem cours4 = new JMenuItem("Ajouter une séance");
-    private JMenuItem cours5 = new JMenuItem("Annuler une séance");
-    private JMenuItem cours6 = new JMenuItem("Valider une séance");
-    private JMenuItem groupes1 = new JMenuItem("Affecter à une séance");
-    private JMenuItem groupes2 = new JMenuItem("Ajouter à une séance");
-    private JMenuItem groupes3 = new JMenuItem("Enlever à une séance");
-    private JMenuItem enseignants1 = new JMenuItem("Affecter à une séance");
-    private JMenuItem enseignants2 = new JMenuItem("Ajouter à une séance");
-    private JMenuItem enseignants3 = new JMenuItem("Enlever à une séance");
-    private JMenuItem salles1 = new JMenuItem("Salles disponibles");
-    private JMenuItem salles2 = new JMenuItem("Affecter à une séance");
+    public JTable tableau, tableau2;
+    public JPanel edt, recap;
+    public JTabbedPane emploi;
+    public JOptionPane etat;
+    public JMenuBar menu = new JMenuBar();
+    public JMenu cours = new JMenu("Cours");
+    public JMenu groupes = new JMenu("Groupes");
+    public JMenu enseignants = new JMenu("Enseignants");
+    public JMenu salles = new JMenu("Salles");
+    public JMenuItem cours1 = new JMenuItem("Modifier le type du cours");
+    public JMenuItem cours2 = new JMenuItem("Modifier le nom du cours");
+    public JMenuItem cours3 = new JMenuItem("Déplacer la séance");
+    public JMenuItem cours4 = new JMenuItem("Ajouter une séance");
+    public JMenuItem cours5 = new JMenuItem("Annuler une séance");
+    public JMenuItem cours6 = new JMenuItem("Valider une séance");
+    public JMenuItem groupes1 = new JMenuItem("Affecter à une séance");
+    public JMenuItem groupes2 = new JMenuItem("Ajouter à une séance");
+    public JMenuItem groupes3 = new JMenuItem("Enlever à une séance");
+    public JMenuItem enseignants1 = new JMenuItem("Affecter à une séance");
+    public JMenuItem enseignants2 = new JMenuItem("Ajouter à une séance");
+    public JMenuItem enseignants3 = new JMenuItem("Enlever à une séance");
+    public JMenuItem salles1 = new JMenuItem("Salles disponibles");
+    public JMenuItem salles2 = new JMenuItem("Affecter à une séance");
     
     public Edt(){
+        
+    }
+    
+    public Edt(Modele mod){
         this.setTitle("Emploi du temps");
         this.setBounds(200, 0, 1000, 800);
         
@@ -105,9 +109,9 @@ public class Edt extends JFrame{
         tableau2 = new JTable(model2);
         recap.add(new JScrollPane(tableau2),BorderLayout.CENTER);
         //creation du tableau d'affichage de l'emploi du temps
-        Object[][] date = {{"etat"},{"nomcours","typecours"},{"enseignant","groupe"},{"salle","site"}};
+       /* Object[][] date = {{"etat"},{"nomcours","typecours"},{"enseignant","groupe"},{"salle","site"}};
         Object[][] donnees = {
-                    {"8:00-9:30","<html>" + date[0][0] + date[0][1] +"<br>" + date[1][0] + date[1][1] +"<br>" +date[2][0] +date[2][1] +"</html>","","","","",""},
+                    {"8:00-9:30","<html>" + date[0][0]  +"<br>" + date[1][0] + date[1][1] +"<br>" +date[2][0] +date[2][1] +"</html>","","","","",""},
                     {"9:30-11:00","","","","","",""},
                     {"11:00-12:30","","","","","",""},
                     {"12:30-14:00","","","","","",""},
@@ -119,8 +123,8 @@ public class Edt extends JFrame{
         
         //date,salle,site,nom et type de cours,enseignant,groupe
         String[] entetes = {" ","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"};
-        Modele model = new Modele(donnees,entetes);
-        tableau = new JTable(model);
+        Modele model = new Modele(donnees,entetes);*/
+        tableau = new JTable(mod);
         tableau.setRowHeight(80);
         tableau.setGridColor(Color.gray);
         //tableau.setForeground(Color.red); couleur de l'ecriture

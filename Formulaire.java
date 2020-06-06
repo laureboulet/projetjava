@@ -23,13 +23,14 @@ import modele.Connexion;
  * @author laure et clemence
  */
 public class Formulaire extends JFrame{
-    private Connexion maconnexion;
-    private JTextField login;
-    private JPasswordField passwd;
-    private JLabel mail, mdp, message;
-    private JButton boutonlog;
-    private JPanel pan;
-    private Edt table = new Edt();
+    public Connexion maconnexion;
+    public JTextField login;
+    public JPasswordField passwd;
+    public JLabel mail, mdp, message;
+    public JButton boutonlog;
+    public JPanel pan;
+    public Edt table = new Edt();
+    
     
     public Formulaire(){
         this.setBounds(500,200,350,200);
@@ -70,21 +71,21 @@ public class Formulaire extends JFrame{
         this.getContentPane().add(pan);
         this.setVisible(true);
         //Définition de l'action du bouton
-        boutonlog.addActionListener(new ActionListener(){
+        /* boutonlog.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
             //Via cette instruction, on se connecte pour avoir acces a l'edt
             String user = login.getText();
             String password = passwd.getText();
             if((user.equals("clemence"))&&(password.equals("ece"))){
                 setVisible(false);
-                //table = new Edt();
+                table = new Edt();
                 table.setVisible(true);
             }
             else{
                 message.setText("Login refused");
             }
             }
-        });
+        });*/
         
         // pour fermer la fenetre
         addWindowListener(new WindowAdapter() {
