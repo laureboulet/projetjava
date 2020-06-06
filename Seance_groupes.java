@@ -18,6 +18,7 @@ public class Seance_groupes {
     
     public Seance_groupes(int id_seance, int id_groupe){
         this.id_seance = id_seance;
+        this.id_groupe = id_groupe;
     }
     //methodes
     public int getId_seance(){

@@ -76,4 +76,31 @@ public class Seance_sallesDAO extends DAO<Seance_salles>{
 
     }
     
+    public Seance_salles find(int id) {
+        Seance_salles obj = new Seance_salles();
+        ResultSet result  = null;
+        //obligation de mettre sous le format date spécial sql
+        
+        try {
+                 
+            PreparedStatement prepare = this.connect
+                    .prepareStatement("SELECT * FROM seance_salles WHERE Id_seance=? ");
+            prepare.setInt(1, id);
+            
+            
+            result=prepare.executeQuery();
+            
+            while(result.next()){
+                obj.setId_seance(result.getInt(1));
+                obj.setId_salle(result.getInt(2));
+            }    
+            
+            System.out.println("l'id de la salle est"+obj.getId_salle());
+            
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        return obj;
+    }
 }

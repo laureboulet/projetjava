@@ -8,30 +8,38 @@ package modele;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  *
  * @author laure et clemence
  */
-public class Type_coursDAO extends DAO<Type_cours>{
+public class GroupeDAO extends DAO<Groupe>{
 
     @Override
-    public Type_cours create(Type_cours obj) {
+    public Groupe create(Groupe obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public Groupe update(Groupe obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete(Groupe obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
-  
-    public Type_cours find(int id) {
-        Type_cours obj = new Type_cours();
+    
+    public Groupe find(int id) {
+        Groupe obj = new Groupe();
         ResultSet result  = null;
         //obligation de mettre sous le format date spécial sql
         
         try {
                  
             PreparedStatement prepare = this.connect
-                    .prepareStatement("SELECT * FROM type_cours WHERE ID=? ");
+                    .prepareStatement("SELECT * FROM groupe WHERE ID=? ");
             prepare.setInt(1, id);
             
             
@@ -40,6 +48,7 @@ public class Type_coursDAO extends DAO<Type_cours>{
             while(result.next()){
                 obj.setId(result.getInt(1));
                 obj.setNom(result.getString(2));
+                obj.setId_promotion(result.getInt(3));
             }    
             
             //System.out.println(obj.getId());
@@ -50,15 +59,4 @@ public class Type_coursDAO extends DAO<Type_cours>{
         
         return obj;
     }
-
-    @Override
-    public Type_cours update(Type_cours obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void delete(Type_cours obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

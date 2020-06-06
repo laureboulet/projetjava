@@ -75,5 +75,35 @@ public class Seance_groupesDAO extends DAO<Seance_groupes>{
         }
     }
     
+    public List<Seance_groupes> find(int groupe){
+        List<Seance_groupes> obj= new ArrayList<>();
+        ResultSet result  = null;
+        try {
+            
+            PreparedStatement prepare = this.connect
+                    .prepareStatement("SELECT * FROM seance_groupes WHERE Id_groupe =?");
+            prepare.setInt(1, groupe);
+            result=prepare.executeQuery();
+            
+            Seance_groupes seance = null;
+            
+            while(result.next()){
+                seance = new Seance_groupes();
+                seance.setId_seance(result.getInt(1));
+                seance.setId_groupe(result.getInt(2));
+              
+                obj.add(seance);
+            }
+            
+           /* for(Seance_groupes it : obj){
+                System.out.println(it.getId_seance());
+            }*/
+            
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        return obj;
+    }
     
 }

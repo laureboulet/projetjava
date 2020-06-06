@@ -62,38 +62,34 @@ public class SeanceDAO extends DAO<Seance>{
     
     
     //methode qui trouve une seance avec ses données (toutes sauf l'id) nous permet de determiner justement cet id
-    public Seance find(Seance obj){
-    
+    public Seance find(int id){
+        Seance obj = new Seance();
         ResultSet result  = null;
         //obligation de mettre sous le format date spécial sql
-        long date = obj.getDate().getTime();
-        java.sql.Date date2 = new java.sql.Date(date);
+        /*long date = obj.getDate().getTime();
+        java.sql.Date date2 = new java.sql.Date(date);*/
+            
         
         try {
                  
             PreparedStatement prepare = this.connect
-                    .prepareStatement("SELECT * FROM seance WHERE Semaine=? AND Date=? AND Heure_debut=? AND Heure_fin=? AND Etat=? AND ID_cours=? AND ID_type=? ");
-            prepare.setInt(1, obj.getSemaine());
-            prepare.setDate(2,date2);
-            prepare.setInt(3,obj.getHeure_debut());
-            prepare.setInt(4, obj.getHeure_fin());
-            prepare.setInt(5, obj.getEtat());
-            prepare.setInt(6, obj.getId_cours());
-            prepare.setInt(7, obj.getId_type());
+                    .prepareStatement("SELECT * FROM seance WHERE ID=? ");
+            prepare.setInt(1, id);
+            
             
             result=prepare.executeQuery();
             
             
-            
+            //Date dat=Date.valueOf(result.getString(3));
             
             while(result.next()){
                 obj.setId(result.getInt(1));
-                obj.setDate(date2);
-                obj.setHeure_debut(result.getInt(3));
-                obj.setHeure_fin(result.getInt(4));
-                obj.setEtat(result.getInt(5));
-                obj.setId_cours(result.getInt(6));
-                obj.setId_type(result.getInt(7));
+                //obj.setDate(dat);
+                obj.setHeure_debut(result.getInt(4));
+                obj.setHeure_fin(result.getInt(5));
+                obj.setEtat(result.getInt(6));
+                obj.setId_cours(result.getInt(7));
+                obj.setId_type(result.getInt(8));
             }    
             
             //System.out.println(obj.getId());

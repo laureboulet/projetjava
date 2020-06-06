@@ -21,10 +21,9 @@ public class Etudiant {
     }
     
     //constructeur avec attributs
-    public Etudiant(int id_utilisateur, int numero, int id_groupe){
+    public Etudiant(int id_utilisateur){
         this.id_utilisateur = id_utilisateur;
-        this.numero = numero;
-        this.id_groupe = id_groupe;
+        
     }
     
     //methodes de recuperation des attributs 

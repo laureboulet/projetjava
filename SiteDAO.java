@@ -8,30 +8,38 @@ package modele;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  *
  * @author laure et clemence
  */
-public class Type_coursDAO extends DAO<Type_cours>{
+public class SiteDAO extends DAO<Site>{
 
     @Override
-    public Type_cours create(Type_cours obj) {
+    public Site create(Site obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public Site update(Site obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete(Site obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
-  
-    public Type_cours find(int id) {
-        Type_cours obj = new Type_cours();
+    
+    public Site find(int id) {
+        Site obj = new Site();
         ResultSet result  = null;
         //obligation de mettre sous le format date spécial sql
         
         try {
                  
             PreparedStatement prepare = this.connect
-                    .prepareStatement("SELECT * FROM type_cours WHERE ID=? ");
+                    .prepareStatement("SELECT * FROM site WHERE ID=? ");
             prepare.setInt(1, id);
             
             
@@ -50,15 +58,4 @@ public class Type_coursDAO extends DAO<Type_cours>{
         
         return obj;
     }
-
-    @Override
-    public Type_cours update(Type_cours obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void delete(Type_cours obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

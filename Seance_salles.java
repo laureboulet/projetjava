@@ -34,7 +34,7 @@ public class Seance_salles {
         this.id_seance = id_seance;
     }
     
-    public void setId_salle(int is_salle){
+    public void setId_salle(int id_salle){
         this.id_salle = id_salle;
     }
 }

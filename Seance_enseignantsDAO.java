@@ -74,5 +74,31 @@ public class Seance_enseignantsDAO extends DAO<Seance_enseignants> {
         }
     }
     
-    
+    public Seance_enseignants find(int id) {
+        Seance_enseignants obj = new Seance_enseignants();
+        ResultSet result  = null;
+        //obligation de mettre sous le format date spécial sql
+        
+        try {
+                 
+            PreparedStatement prepare = this.connect
+                    .prepareStatement("SELECT * FROM seance_enseignants WHERE Id_seance=? ");
+            prepare.setInt(1, id);
+            
+            
+            result=prepare.executeQuery();
+            
+            while(result.next()){
+                obj.setId_seance(result.getInt(1));
+                obj.setId_enseignant(result.getInt(2));
+            }    
+            
+            //System.out.println(obj.getId());
+            
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        return obj;
+    }
 }

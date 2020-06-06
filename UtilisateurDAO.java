@@ -111,7 +111,34 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
         return obj;
     }
 
-    
+     public Utilisateur findNom(int id){
+        Utilisateur obj= new Utilisateur();
+        ResultSet result  = null;
+        
+        try {
+            PreparedStatement prepare = this.connect
+                    .prepareStatement("SELECT * FROM utilisateur WHERE ID=? ");
+            prepare.setInt(1, id);
+          
+            result=prepare.executeQuery();
+            
+            
+            while(result.next()){
+                obj.setId(result.getInt(1));
+                obj.setEmail(result.getString(2));
+                obj.setPasswd(result.getString(3));
+                obj.setNom(result.getString(4));
+                obj.setPrenom(result.getString(5));
+                obj.setDroit(result.getInt(6));
+            }    
+            
+           
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        return obj;
+    }
     
     public Utilisateur update(Utilisateur obj){
         try{
