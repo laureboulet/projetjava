@@ -37,6 +37,14 @@ CREATE TABLE IF NOT EXISTS `seance_salles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Dumping data for table `seance_salles`
+--
+
+INSERT INTO `seance_salles` (`Id_seance`, `Id_salles`) VALUES
+(1, 1),
+(2, 1);
+
+--
 -- Constraints for dumped tables
 --
 
