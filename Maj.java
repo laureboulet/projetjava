@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.BorderFactory;
@@ -29,13 +30,17 @@ import javax.swing.JTextField;
  * @author laure et clemence
  */
 public class Maj extends JDialog{
-    private MajInfo info = new MajInfo();
+    public MajInfo info = new MajInfo();
     private boolean sendData;
     private JLabel etatLabel, nomLabel, typeLabel, salleLabel, enseignantLabel, groupeLabel,dateLabel;
-    private JRadioButton tranche1, tranche2, tranche3, tranche4, tranche5, tranche6, tranche7, tranche8, tranche9;
-    private JComboBox etat, type, enseignant, groupe, salle;
-    private JTextField nom;
-    private JFormattedTextField date;
+    public JRadioButton tranche1, tranche2, tranche3, tranche4, tranche5, tranche6, tranche7, tranche8, tranche9;
+    public JComboBox etat;
+    public JComboBox type;
+    public JComboBox enseignant, groupe, salle;
+    public JTextField nom;
+    public JTextField date;
+    public JPanel control = new JPanel();
+    public JButton okBouton = new JButton("OK");
     
     public Maj(JFrame parent, String title, boolean modal){
         //On appelle le construteur de JDialog correspondant
@@ -101,6 +106,8 @@ public class Maj extends JDialog{
     panEnseignant.setBorder(BorderFactory.createTitledBorder("Enseignant"));
     panEnseignant.setPreferredSize(new Dimension(260, 60));
     enseignant = new JComboBox();
+    enseignant.addItem("A determiner");
+    
 
     enseignantLabel = new JLabel("Enseignant : ");
     enseignant.setPreferredSize(new Dimension(100, 25));
@@ -117,13 +124,15 @@ public class Maj extends JDialog{
     groupe.setPreferredSize(new Dimension(90, 25));
     panGroupe.add(groupeLabel);
     panGroupe.add(groupe);
+    groupe.addItem("A determiner");
 
     //La salle
     JPanel panSalle = new JPanel();
     panSalle.setBackground(Color.white);
     panSalle.setPreferredSize(new Dimension(220, 60));
     panSalle.setBorder(BorderFactory.createTitledBorder("Nom de la salle"));
-    salle = new JComboBox();  
+    salle = new JComboBox();
+    salle.addItem("A determiner");
     
     salleLabel = new JLabel("Salle : ");
     salle.setPreferredSize(new Dimension(90, 25));
@@ -134,13 +143,14 @@ public class Maj extends JDialog{
     JPanel panDate = new JPanel();
     panDate.setBackground(Color.white);
     panDate.setPreferredSize(new Dimension(220, 60));
-    DateFormat format = new SimpleDateFormat("YYYY-MM-DD");
-    date = new JFormattedTextField(format);
+    //DateFormat format = new SimpleDateFormat("YYYY-MM-DD");
+    date = new JTextField();
     date.setPreferredSize(new Dimension(100, 25));
     panDate.setBorder(BorderFactory.createTitledBorder("Date de la séance"));
     dateLabel = new JLabel("Date :");
     panDate.add(dateLabel);
     panDate.add(date);
+    
     
     //heures
     JPanel panHoraire = new JPanel();
@@ -188,12 +198,12 @@ public class Maj extends JDialog{
     content.add(panDate);
     content.add(panHoraire,BorderLayout.SOUTH);
 
-    JPanel control = new JPanel();
-    JButton okBouton = new JButton("OK");
     
-    okBouton.addActionListener(new ActionListener(){
+    //JButton okBouton = new JButton("OK");
+    
+    /*okBouton.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent arg0) {        
-        info = new MajInfo((int)etat.getSelectedItem(), nom.getText(), (String)type.getSelectedItem(), (String)enseignant.getSelectedItem(),(String)groupe.getSelectedItem(),(String)salle.getSelectedItem(),date.getText(),getHoraire());
+        info = new MajInfo(etat.getSelectedItem().toString(), nom.getText(), (String)type.getSelectedItem(), (String)enseignant.getSelectedItem(),(String)groupe.getSelectedItem(),(String)salle.getSelectedItem(),(String)date.getText(),getHoraire());
         //setVisible(false);
       }
 
@@ -212,8 +222,11 @@ public class Maj extends JDialog{
 
       /*public String getDate(){
         return (date.getText().equals("")) ? "180" : date.getText();
-      } */     
-    });
+      }     
+    });*/
+         
+    control.add(okBouton);
+
 
     JButton cancelBouton = new JButton("Annuler");
     cancelBouton.addActionListener(new ActionListener(){
@@ -222,7 +235,7 @@ public class Maj extends JDialog{
       }      
     });
 
-    control.add(okBouton);
+    //control.add(okBouton);
     control.add(cancelBouton);
 
     //this.getContentPane().add(panEtat, BorderLayout.WEST);

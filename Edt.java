@@ -49,6 +49,8 @@ public class Edt extends JFrame{
     public JMenuItem salles1 = new JMenuItem("Salles disponibles");
     public JMenuItem salles2 = new JMenuItem("Affecter à une séance");
     
+    
+    
     public Edt(){
         
     }
@@ -75,13 +77,13 @@ public class Edt extends JFrame{
         this.cours.add(cours2);
         this.cours.add(cours3);
         
-        cours4.addActionListener(new ActionListener(){
+        /*cours4.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent arg0) {
-            Maj nouv = null;
+                Maj nouv = null;
                 nouv = new Maj(ajouter, "Ajouter une séance", true);
                 nouv.setVisible(true);
             }         
-        });  
+        });  */
         this.cours.add(cours4);
         this.groupes.add(groupes2);
         this.groupes.add(groupes3);
@@ -89,10 +91,10 @@ public class Edt extends JFrame{
         this.enseignants.add(enseignants3);
         this.salles.add(salles1);
         this.salles.add(salles2);
-        this.menu.add(cours);
+        /*this.menu.add(cours);
         this.menu.add(groupes);
         this.menu.add(enseignants);
-        this.menu.add(salles);
+        this.menu.add(salles);*/
         this.menu.add(filtre);
         
         //creation des onglets
@@ -157,11 +159,11 @@ public class Edt extends JFrame{
                 if (rowindex < 0 || colindex < 1) //pour ne pas avoir de popup a la colonne des heures
                     return;
                 if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) { //clic droit
-                    Maj nouv = null;
-                    nouv = new Maj(ajouter, "Ajouter ou modofier une séance", true);
-                    nouv.setVisible(true);
+                    Maj nouv2 = null;
+                    nouv2 = new Maj(ajouter, "Ajouter ou modofier une séance", true);
+                    nouv2.setVisible(true);
                 }
-                else{ //clic gauche
+                else if(SwingUtilities.isLeftMouseButton(e)){ //clic gauche
                     JPopupMenu popup = createPopupMenu();
                     popup.show(e.getComponent(), e.getX(), e.getY());
                         

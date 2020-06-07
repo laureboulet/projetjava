@@ -12,13 +12,19 @@ import java.sql.Date;
  * @author laure et clemence
  */
 public class MajInfo {
-    private int etat;
-    private String nom, type, enseignant, groupe, salle;
-    private String date,heures;
+    public int etat;
+    public String nom, type, enseignant, groupe, salle;
+    public String date,heures;
 
     public MajInfo(){}
-    public MajInfo(int etat, String nom, String type, String enseignant, String groupe, String salle, String date, String heures){
-      this.etat = etat;
+    public MajInfo(String etat, String nom, String type, String enseignant, String groupe, String salle, String date, String heures){
+      if(etat.equals("Validée")){
+          this.etat=2;
+      }else if(etat.equals("En cours de validation")){
+          this.etat=1;
+      }else{
+          this.etat=0;
+      }
       this.nom = nom;
       this.type = type;
       this.enseignant = enseignant;
