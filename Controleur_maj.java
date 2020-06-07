@@ -39,10 +39,18 @@ import vue.MajInfo;
  * @author laure et clemence
  */
 public class Controleur_maj {
+    /**
+     * controleur vide
+     */
     public Controleur_maj(){
         
     }
     
+    /**
+     * constructeur
+     * @param ut
+     * @param maj 
+     */
     public Controleur_maj(Utilisateur ut, Maj maj){
         //on récupère tous les enseignants
         List<Enseignant> ens = new ArrayList<>();
@@ -200,6 +208,9 @@ public class Controleur_maj {
         
       }
 
+      /**
+       * on récupère les plages horaires
+       */  
       public String getHoraire(){
         return (maj.tranche1.isSelected()) ? maj.tranche1.getText() : 
                (maj.tranche2.isSelected()) ? maj.tranche2.getText() : 

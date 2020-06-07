@@ -185,24 +185,28 @@ public class Controleur_filtre {
                     si=sid.find(s.getId_site());
                     String site = si.getNom();     
                     date[3] = salle+","+site;
+                    //on récupère le jour de la semaine
+                    int day = seance.getDate().getDay();
+
+                    day++;
 
 
                     if(seance.getHeure_debut() ==800) {
-                        donnees[0][2]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
+                        donnees[0][day]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
                     } else if(seance.getHeure_debut() ==930) {
-                        donnees[1][2]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[1][day]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1100){
-                        donnees[2][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[2][day]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1230){
-                        donnees[3][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[3][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1400){
-                        donnees[4][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[4][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1530){
-                        donnees[5][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[5][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1700){
-                        donnees[6][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
+                        donnees[6][day]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1830){
-                        donnees[7][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[7][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     }
                     for(int i=0;i<4;i++){
                         System.out.println(date[i]);
@@ -287,23 +291,27 @@ public class Controleur_filtre {
                     si=sid.find(s.getId_site());
                     String site = si.getNom();     
                     date[3] = salle+","+site;
+                    //on récupère le jour de la semaine
+                    int day = seance.getDate().getDay();
+
+                    day++;
 
                     if(seance.getHeure_debut() ==800) {
-                        donnees[0][2]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
+                        donnees[0][day]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
                     } else if(seance.getHeure_debut() ==930) {
-                        donnees[1][2]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[1][day]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1100){
-                        donnees[2][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[2][day]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1230){
-                        donnees[3][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[3][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1400){
-                        donnees[4][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[4][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1530){
-                        donnees[5][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[5][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1700){
-                        donnees[6][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
+                        donnees[6][day]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1830){
-                        donnees[7][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[7][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     }
                 }
                 for(int i=0;i<4;i++){
@@ -391,23 +399,27 @@ public class Controleur_filtre {
                         si=sid.find(s.getId_site());
                         String site = si.getNom();     
                         date[3] = salle+","+site;
+                        //on récupère le jour de la semaine
+                        int day = seance.getDate().getDay();
+
+                        day++;
                         
                         if(seance.getHeure_debut() ==800) {
-                        donnees[0][2]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
+                        donnees[0][day]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
                         } else if(seance.getHeure_debut() ==930) {
-                            donnees[1][2]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                            donnees[1][day]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                         } else if (seance.getHeure_debut()==1100){
-                            donnees[2][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                            donnees[2][day]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                         } else if (seance.getHeure_debut()==1230){
-                            donnees[3][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                            donnees[3][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                         } else if (seance.getHeure_debut()==1400){
-                            donnees[4][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                            donnees[4][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                         } else if (seance.getHeure_debut()==1530){
-                            donnees[5][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                            donnees[5][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                         } else if (seance.getHeure_debut()==1700){
-                            donnees[6][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
+                            donnees[6][day]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
                         } else if (seance.getHeure_debut()==1830){
-                            donnees[7][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                            donnees[7][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                         }
                         for(int i=0;i<4;i++){
                             System.out.println(date[i]);
@@ -552,24 +564,28 @@ public class Controleur_filtre {
                     si=sid.find(s.getId_site());
                     String site = si.getNom();     
                     date[3] = salle+","+site;
+                    //on récupère le jour de la semaine
+                    int day = seance.getDate().getDay();
+
+                    day++;
 
 
                     if(seance.getHeure_debut() ==800) {
-                        donnees[0][2]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
+                        donnees[0][day]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
                     } else if(seance.getHeure_debut() ==930) {
-                        donnees[1][2]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[1][day]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1100){
-                        donnees[2][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[2][day]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1230){
-                        donnees[3][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[3][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1400){
-                        donnees[4][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[4][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1530){
-                        donnees[5][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[5][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1700){
-                        donnees[6][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
+                        donnees[6][day]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1830){
-                        donnees[7][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[7][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     }
                     for(int i=0;i<4;i++){
                         System.out.println(date[i]);
@@ -654,23 +670,27 @@ public class Controleur_filtre {
                     si=sid.find(s.getId_site());
                     String site = si.getNom();     
                     date[3] = salle+","+site;
+                    //on récupère le jour de la semaine
+                    int day = seance.getDate().getDay();
+
+                    day++;
 
                     if(seance.getHeure_debut() ==800) {
-                        donnees[0][2]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
+                        donnees[0][day]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
                     } else if(seance.getHeure_debut() ==930) {
-                        donnees[1][2]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[1][day]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1100){
-                        donnees[2][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[2][day]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1230){
-                        donnees[3][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[3][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1400){
-                        donnees[4][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[4][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1530){
-                        donnees[5][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[5][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1700){
-                        donnees[6][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
+                        donnees[6][day]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
                     } else if (seance.getHeure_debut()==1830){
-                        donnees[7][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        donnees[7][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                     }
                 }
                 for(int i=0;i<4;i++){
@@ -758,23 +778,27 @@ public class Controleur_filtre {
                         si=sid.find(s.getId_site());
                         String site = si.getNom();     
                         date[3] = salle+","+site;
+                        //on récupère le jour de la semaine
+                        int day = seance.getDate().getDay();
+
+                        day++;
                         
                         if(seance.getHeure_debut() ==800) {
-                        donnees[0][2]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
+                        donnees[0][day]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
                         } else if(seance.getHeure_debut() ==930) {
-                            donnees[1][2]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                            donnees[1][day]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                         } else if (seance.getHeure_debut()==1100){
-                            donnees[2][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                            donnees[2][day]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                         } else if (seance.getHeure_debut()==1230){
-                            donnees[3][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                            donnees[3][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                         } else if (seance.getHeure_debut()==1400){
-                            donnees[4][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                            donnees[4][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                         } else if (seance.getHeure_debut()==1530){
-                            donnees[5][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                            donnees[5][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                         } else if (seance.getHeure_debut()==1700){
-                            donnees[6][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
+                            donnees[6][day]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
                         } else if (seance.getHeure_debut()==1830){
-                            donnees[7][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                            donnees[7][day]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
                         }
                         for(int i=0;i<4;i++){
                             System.out.println(date[i]);
