@@ -42,6 +42,8 @@ import vue.Modele;
  * @author laure et clemence
  */
 public class Controleur_edt {
+    public String valeur = null;
+    public String valeur2 = null;
     public Controleur_edt(){
         
     }
@@ -149,19 +151,14 @@ public class Controleur_edt {
                 }
                
             }
-            
-    
-          
-
-
 
             //date,salle,site,nom et type de cours,enseignant,groupe
             String[] entetes = {" ","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"};
             Modele mod = new Modele(donnees,entetes);
 
             Edt table = new Edt(mod);
-            table.setVisible(true);
             
+            table.setVisible(true);
         }
         else if(droit==3){
             Enseignant ens = new Enseignant(ut.getId());
@@ -201,7 +198,7 @@ public class Controleur_edt {
                     etat = "annulé";
                 }
                 date [0]=etat;
-                 //casee 2
+                 //case 2
                 Cours cours = new Cours();
                 CoursDAO coursd = new CoursDAO();
                 cours= coursd.find(seance.getId_cours());
@@ -261,9 +258,16 @@ public class Controleur_edt {
             Modele mod = new Modele(donnees,entetes);
 
             Edt table = new Edt(mod);
+            
             table.setVisible(true);
             
         }else if(droit == 2){
+            List<Enseignant> ens = new ArrayList<>();
+            EnseignantDAO ensdao = new EnseignantDAO();
+            ens = ensdao.findAll();
+            List<Groupe> gr = new ArrayList<>();
+            GroupeDAO grdao = new GroupeDAO();
+            gr=grdao.findAll();         
             Object[][] donnees = {
                         {"8:00-9:30","","","","","",""},
                         {"9:30-11:00","","","","","",""},
@@ -279,9 +283,327 @@ public class Controleur_edt {
             Modele mod = new Modele(donnees,entetes);
 
             Edt table = new Edt(mod);
-            table.setVisible(true);
+            table.menu.add(table.ens);
+            table.menu.add(table.gr);
+            table.menu.add(table.cou);
+            table.menu.add(table.ok);           
+            table.ok.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent arg0) {
+                valeur = table.ens.getSelectedItem().toString();
+                valeur2 = table.gr.getSelectedItem().toString();
+                System.out.println(valeur);
+                System.out.println("coucou");
+                System.out.println(valeur2);
+                Controleur_filtre f = new Controleur_filtre(ut,valeur,valeur2);
+                //table.setVisible(true);
+                }         
+            });
+            table.cou.addItem("Cours");          
+            table.ens.addItem("Enseignants");
+            table.gr.addItem("Groupes");
+            for(Enseignant it : ens){
+                Utilisateur u = new Utilisateur();
+                UtilisateurDAO ud = new UtilisateurDAO();
+                u=ud.findNom(it.getId_utilisateur());
+                table.ens.addItem(u.getNom());
+                
+                System.out.println(u.getNom());
+            }
+            for(Groupe it : gr){
+                table.gr.addItem(it.getNom());
+            }
+            if(valeur!=null&&valeur2=="Groupes"){
+                Utilisateur u = new Utilisateur();
+                UtilisateurDAO ud = new UtilisateurDAO();
+                Enseignant e = new Enseignant();
+                EnseignantDAO ed = new EnseignantDAO();
+                u=ud.findId(valeur);
+                //System.out.println(valeur);
+                Seance_enseignants se = new Seance_enseignants();
+                List<Seance_enseignants> obj = new ArrayList<>();
+                Seance_enseignantsDAO sed = new Seance_enseignantsDAO();
+                obj=sed.findList(u.getId());
+                //System.out.println(obj.get(0));
+                Seance seance = new Seance();
+                SeanceDAO seanced = new SeanceDAO();
+                int idSeance=0;
+                for(Seance_enseignants it : obj){
+                    Object[] date = new String[4];
+                    //case 1
+                    idSeance = it.getId_seance();
+                    seance= seanced.find(idSeance);
+                    String etat;
+                    if(seance.getEtat()==1){
+                        etat = "En cours de validation";
+                    }else if(seance.getEtat()==2){
+                        etat = "validé";
+                    }else {
+                        etat = "annulé";
+                    }
+                    date [0]=etat;
+                     //case 2
+                    Cours cours = new Cours();
+                    CoursDAO coursd = new CoursDAO();
+                    cours= coursd.find(seance.getId_cours());
+                    String nomcours = cours.getNom();
+                    Type_cours type = new Type_cours();
+                    Type_coursDAO typed = new Type_coursDAO();
+                    type = typed.find(seance.getId_type());
+                    String typecours = type.getNom();
+                    date[1]=nomcours+","+typecours;
+                    //case 3
+                    Seance_groupes sg = new Seance_groupes();
+                    Seance_groupesDAO sd = new Seance_groupesDAO();
+                    sg = sd.findS(seance.getId());
+                    String enseignant = ut.getNom();
+                    Groupe gro = new Groupe();
+                    GroupeDAO grd = new GroupeDAO();
+                    gro = grd.find(sg.getId_groupe());
+                    date[2]=enseignant+","+gro.getNom();
+                    //case 4 
+                    Salle s = new Salle();
+                    SalleDAO sad = new SalleDAO();
+                    Seance_salles sesa = new Seance_salles();
+                    Seance_sallesDAO sesad = new Seance_sallesDAO();
+                    //on cherche l'id de la salle correspondant a cette seance
+                    sesa = sesad.find(seance.getId());
+                    //on cherche la salle correspondant à cet id 
+                    s=sad.find(sesa.getId_salle());
+                    String salle = s.getNom();
+                    Site si = new Site();
+                    SiteDAO sid = new SiteDAO();
+                    si=sid.find(s.getId_site());
+                    String site = si.getNom();     
+                    date[3] = salle+","+site;
+
+
+                    if(seance.getHeure_debut() ==800) {
+                        donnees[0][2]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
+                    } else if(seance.getHeure_debut() ==930) {
+                        donnees[1][2]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1100){
+                        donnees[2][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1230){
+                        donnees[3][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1400){
+                        donnees[4][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1530){
+                        donnees[5][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1700){
+                        donnees[6][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1830){
+                        donnees[7][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    }
+                    for(int i=0;i<4;i++){
+                        System.out.println(date[i]);
+                    }
+                }
+           
+                for(int i=0;i<4;i++){
+                    for(int j=0;j<6;j++){
+                        System.out.println(donnees[i][j]);
+                    }
+                }
+                table.setVisible(true);
+            }
+            else if(valeur2!=null&&valeur=="Enseignants"){
+                Groupe g = new Groupe();
+                GroupeDAO gd = new GroupeDAO();
+                g=gd.findId(valeur2);
+                System.out.println(g);
+                List<Seance_groupes> sg = new ArrayList<>();
+                Seance_groupesDAO sgd = new Seance_groupesDAO();
+                sg=sgd.find(g.getId());
+                Seance seance = new Seance();
+                SeanceDAO seanced = new SeanceDAO();
+                int idSeance=0;
+                for(Seance_groupes it : sg){
+                    Object[] date = new String[4];
+                    //case 1
+                    idSeance = it.getId_seance();
+                    seance= seanced.find(idSeance);
+                    String etat;
+                    if(seance.getEtat()==1){
+                        etat = "En cours de validation";
+                    }else if(seance.getEtat()==2){
+                        etat = "validé";
+                    }else {
+                        etat = "annulé";
+                    }
+                    date [0]=etat;
+                    //case 2
+                    Cours cours = new Cours();
+                    CoursDAO coursd = new CoursDAO();
+                    cours= coursd.find(seance.getId_cours());
+                    String nomcours = cours.getNom();
+                    Type_cours type = new Type_cours();
+                    Type_coursDAO typed = new Type_coursDAO();
+                    type = typed.find(seance.getId_type());
+                    String typecours = type.getNom();
+                    date[1]=nomcours+","+typecours;
+                    //case 3
+                    Seance_enseignants sens = new Seance_enseignants();
+                    Seance_enseignantsDAO sensd = new Seance_enseignantsDAO();
+                    sens = sensd.find(seance.getId());
+                    Utilisateur enseign = new Utilisateur();
+                    UtilisateurDAO enseignd = new UtilisateurDAO();
+                    enseign = enseignd.findNom(sens.getId_enseignant());
+                    String enseignant = enseign.getNom();
+                    Groupe gro = new Groupe();
+                    GroupeDAO grd = new GroupeDAO();
+                    gro = grd.findId(valeur2);
+                    date[2]=enseignant+","+gro.getNom();
+                    //case 4 
+                    Salle s = new Salle();
+                    SalleDAO sad = new SalleDAO();
+                    Seance_salles sesa = new Seance_salles();
+                    Seance_sallesDAO sesad = new Seance_sallesDAO();
+                    //on cherche l'id de la salle correspondant a cette seance
+                    sesa = sesad.find(seance.getId());
+                    //on cherche la salle correspondant à cet id 
+                    s=sad.find(sesa.getId_salle());
+                    String salle = s.getNom();
+                    Site si = new Site();
+                    SiteDAO sid = new SiteDAO();
+                    si=sid.find(s.getId_site());
+                    String site = si.getNom();     
+                    date[3] = salle+","+site;
+                
+                    if(seance.getHeure_debut() ==800) {
+                        donnees[0][2]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
+                    } else if(seance.getHeure_debut() ==930) {
+                        donnees[1][2]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1100){
+                        donnees[2][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1230){
+                        donnees[3][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1400){
+                        donnees[4][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1530){
+                        donnees[5][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1700){
+                        donnees[6][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1830){
+                        donnees[7][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    }
+                    for(int i=0;i<4;i++){
+                        System.out.println(date[i]);
+                    }
+                } 
+                /*for(int i=0;i<4;i++){
+                    for(int j=0;j<6;j++){
+                        System.out.println(donnees[i][j]);
+                    }
+                }*/
+                table.setVisible(true);
+            }
+            else if((valeur!=null&&valeur2!=null)&&(valeur!="Enseignants"&&valeur2!="Groupes")){ //filtre croise
+                Utilisateur u = new Utilisateur();
+                UtilisateurDAO ud = new UtilisateurDAO();
+                Enseignant e = new Enseignant();
+                EnseignantDAO ed = new EnseignantDAO();
+                u=ud.findId(valeur);
+                Groupe g = new Groupe();
+                GroupeDAO gd = new GroupeDAO();
+                g=gd.findId(valeur2);
+                Seance_enseignants se = new Seance_enseignants();
+                List<Seance_enseignants> obj = new ArrayList<>();
+                Seance_enseignantsDAO sed = new Seance_enseignantsDAO();
+                obj=sed.findList(u.getId());
+                List<Seance_groupes> sg = new ArrayList<>();
+                Seance_groupesDAO sgd = new Seance_groupesDAO();
+                sg=sgd.find(g.getId());
+                Seance seance = new Seance();
+                SeanceDAO seanced = new SeanceDAO();
+                int idSeance=0;
+                for(Seance_groupes it : sg){
+                    for(Seance_enseignants iterator : obj){
+                        Object[] date = new String[4];
+                        //case 1
+                        idSeance = it.getId_seance();
+                        seance= seanced.find(idSeance);
+                        String etat;
+                        if(seance.getEtat()==1){
+                            etat = "En cours de validation";
+                        }else if(seance.getEtat()==2){
+                            etat = "validé";
+                        }else {
+                            etat = "annulé";
+                        }
+                        date [0]=etat;
+                        //case 2
+                        Cours cours = new Cours();
+                        CoursDAO coursd = new CoursDAO();
+                        cours= coursd.find(seance.getId_cours());
+                        String nomcours = cours.getNom();
+                        Type_cours type = new Type_cours();
+                        Type_coursDAO typed = new Type_coursDAO();
+                        type = typed.find(seance.getId_type());
+                        String typecours = type.getNom();
+                        date[1]=nomcours+","+typecours;
+                        //case 3
+                        Seance_enseignants sens = new Seance_enseignants();
+                        Seance_enseignantsDAO sensd = new Seance_enseignantsDAO();
+                        sens = sensd.find(seance.getId());
+                        Utilisateur enseign = new Utilisateur();
+                        UtilisateurDAO enseignd = new UtilisateurDAO();
+                        enseign = enseignd.findNom(sens.getId_enseignant());
+                        String enseignant = enseign.getNom();
+                        Groupe gro = new Groupe();
+                        GroupeDAO grd = new GroupeDAO();
+                        gro = grd.findId(valeur2);
+                        date[2]=enseignant+","+gro.getNom(); //ou valeur a la place de enseignant
+                        //case 4 
+                        Salle s = new Salle();
+                        SalleDAO sad = new SalleDAO();
+                        Seance_salles sesa = new Seance_salles();
+                        Seance_sallesDAO sesad = new Seance_sallesDAO();
+                        //on cherche l'id de la salle correspondant a cette seance
+                        sesa = sesad.find(seance.getId());
+                        //on cherche la salle correspondant à cet id 
+                        s=sad.find(sesa.getId_salle());
+                        String salle = s.getNom();
+                        Site si = new Site();
+                        SiteDAO sid = new SiteDAO();
+                        si=sid.find(s.getId_site());
+                        String site = si.getNom();     
+                        date[3] = salle+","+site;
+                        
+                        if(seance.getHeure_debut() ==800) {
+                        donnees[0][2]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
+                        } else if(seance.getHeure_debut() ==930) {
+                            donnees[1][2]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        } else if (seance.getHeure_debut()==1100){
+                            donnees[2][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        } else if (seance.getHeure_debut()==1230){
+                            donnees[3][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        } else if (seance.getHeure_debut()==1400){
+                            donnees[4][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        } else if (seance.getHeure_debut()==1530){
+                            donnees[5][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        } else if (seance.getHeure_debut()==1700){
+                            donnees[6][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
+                        } else if (seance.getHeure_debut()==1830){
+                            donnees[7][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        }
+                        for(int i=0;i<4;i++){
+                            System.out.println(date[i]);
+                        }
+                    }
+                }
+                table.setVisible(true);
+            }
+            else if((valeur==null&&valeur2==null)||(valeur=="Enseignants"&&valeur2=="Groupes")){
+                table.setVisible(true);
+            }
             
-        } else if(droit==1){
+        }else if(droit==1){
+            List<Enseignant> ens = new ArrayList<>();
+            EnseignantDAO ensdao = new EnseignantDAO();
+            ens = ensdao.findAll();
+            List<Groupe> gr = new ArrayList<>();
+            GroupeDAO grdao = new GroupeDAO();
+            gr=grdao.findAll();
             Object[][] donnees = {
                         {"8:00-9:30","","","","","",""},
                         {"9:30-11:00","","","","","",""},
@@ -295,22 +617,337 @@ public class Controleur_edt {
             
             String[] entetes = {" ","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"};
             Modele mod = new Modele(donnees,entetes);
-
+            
             Edt table = new Edt(mod);
-            table.setVisible(true);
-            //on affiche le menu de modifications visibles pour l'administrateur uniquement
             table.cours4.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent arg0) {
+                public void actionPerformed(ActionEvent arg0) {
                 Maj nouv = null;
-                nouv = new Maj(table.ajouter, "Ajouter une séance", true);
-                //nouv.setVisible(true);
-                Controleur_maj ctrl = new Controleur_maj(ut,nouv);
-            }         
-        }); 
+                    nouv = new Maj(table.ajouter, "Ajouter une séance", true);
+                    //nouv.setVisible(true);
+                    Controleur_maj ctrl = new Controleur_maj(ut,nouv);
+                }         
+            });
+            
             table.menu.add(table.cours);
             table.menu.add(table.groupes);
             table.menu.add(table.enseignants);
             table.menu.add(table.salles);
+            table.menu.add(table.ens);
+            table.menu.add(table.gr);
+            table.menu.add(table.cou);
+            table.menu.add(table.ok);           
+            table.ok.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent arg0) {
+                valeur = table.ens.getSelectedItem().toString();
+                valeur2 = table.gr.getSelectedItem().toString();
+                System.out.println(valeur);
+                System.out.println("coucou");
+                System.out.println(valeur2);
+                Controleur_filtre f = new Controleur_filtre(ut,valeur,valeur2);
+                //table.setVisible(true);
+                }         
+            });
+            table.cou.addItem("Cours");          
+            table.ens.addItem("Enseignants");
+            table.gr.addItem("Groupes");
+            
+            for(Enseignant it : ens){
+                Utilisateur u = new Utilisateur();
+                UtilisateurDAO ud = new UtilisateurDAO();
+                u=ud.findNom(it.getId_utilisateur());
+                table.ens.addItem(u.getNom());
+                
+                System.out.println(u.getNom());
+            }
+            for(Groupe it : gr){
+                table.gr.addItem(it.getNom());
+            }   
+            //String valeur = table.ens.getSelectedItem().toString();
+            if(valeur!=null&&valeur2=="Groupes"){
+                Utilisateur u = new Utilisateur();
+                UtilisateurDAO ud = new UtilisateurDAO();
+                Enseignant e = new Enseignant();
+                EnseignantDAO ed = new EnseignantDAO();
+                u=ud.findId(valeur);
+                //System.out.println(valeur);
+                Seance_enseignants se = new Seance_enseignants();
+                List<Seance_enseignants> obj = new ArrayList<>();
+                Seance_enseignantsDAO sed = new Seance_enseignantsDAO();
+                obj=sed.findList(u.getId());
+                //System.out.println(obj.get(0));
+                Seance seance = new Seance();
+                SeanceDAO seanced = new SeanceDAO();
+                int idSeance=0;
+                for(Seance_enseignants it : obj){
+                    Object[] date = new String[4];
+                    //case 1
+                    idSeance = it.getId_seance();
+                    seance= seanced.find(idSeance);
+                    String etat;
+                    if(seance.getEtat()==1){
+                        etat = "En cours de validation";
+                    }else if(seance.getEtat()==2){
+                        etat = "validé";
+                    }else {
+                        etat = "annulé";
+                    }
+                    date [0]=etat;
+                     //case 2
+                    Cours cours = new Cours();
+                    CoursDAO coursd = new CoursDAO();
+                    cours= coursd.find(seance.getId_cours());
+                    String nomcours = cours.getNom();
+                    Type_cours type = new Type_cours();
+                    Type_coursDAO typed = new Type_coursDAO();
+                    type = typed.find(seance.getId_type());
+                    String typecours = type.getNom();
+                    date[1]=nomcours+","+typecours;
+                    //case 3
+                    Seance_groupes sg = new Seance_groupes();
+                    Seance_groupesDAO sd = new Seance_groupesDAO();
+                    sg = sd.findS(seance.getId());
+                    String enseignant = ut.getNom();
+                    Groupe gro = new Groupe();
+                    GroupeDAO grd = new GroupeDAO();
+                    gro = grd.find(sg.getId_groupe());
+                    date[2]=enseignant+","+gro.getNom();
+                    //case 4 
+                    Salle s = new Salle();
+                    SalleDAO sad = new SalleDAO();
+                    Seance_salles sesa = new Seance_salles();
+                    Seance_sallesDAO sesad = new Seance_sallesDAO();
+                    //on cherche l'id de la salle correspondant a cette seance
+                    sesa = sesad.find(seance.getId());
+                    //on cherche la salle correspondant à cet id 
+                    s=sad.find(sesa.getId_salle());
+                    String salle = s.getNom();
+                    Site si = new Site();
+                    SiteDAO sid = new SiteDAO();
+                    si=sid.find(s.getId_site());
+                    String site = si.getNom();     
+                    date[3] = salle+","+site;
+
+
+                    if(seance.getHeure_debut() ==800) {
+                        donnees[0][2]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
+                    } else if(seance.getHeure_debut() ==930) {
+                        donnees[1][2]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1100){
+                        donnees[2][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1230){
+                        donnees[3][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1400){
+                        donnees[4][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1530){
+                        donnees[5][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1700){
+                        donnees[6][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1830){
+                        donnees[7][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    }
+                    for(int i=0;i<4;i++){
+                        System.out.println(date[i]);
+                    }
+                }
+           
+                for(int i=0;i<4;i++){
+                    for(int j=0;j<6;j++){
+                        System.out.println(donnees[i][j]);
+                    }
+                }
+                table.setVisible(true);
+            }
+            else if(valeur2!=null&&valeur=="Enseignants"){
+                Groupe g = new Groupe();
+                GroupeDAO gd = new GroupeDAO();
+                g=gd.findId(valeur2);
+                System.out.println(g);
+                List<Seance_groupes> sg = new ArrayList<>();
+                Seance_groupesDAO sgd = new Seance_groupesDAO();
+                sg=sgd.find(g.getId());
+                Seance seance = new Seance();
+                SeanceDAO seanced = new SeanceDAO();
+                int idSeance=0;
+                for(Seance_groupes it : sg){
+                    Object[] date = new String[4];
+                    //case 1
+                    idSeance = it.getId_seance();
+                    seance= seanced.find(idSeance);
+                    String etat;
+                    if(seance.getEtat()==1){
+                        etat = "En cours de validation";
+                    }else if(seance.getEtat()==2){
+                        etat = "validé";
+                    }else {
+                        etat = "annulé";
+                    }
+                    date [0]=etat;
+                    //case 2
+                    Cours cours = new Cours();
+                    CoursDAO coursd = new CoursDAO();
+                    cours= coursd.find(seance.getId_cours());
+                    String nomcours = cours.getNom();
+                    Type_cours type = new Type_cours();
+                    Type_coursDAO typed = new Type_coursDAO();
+                    type = typed.find(seance.getId_type());
+                    String typecours = type.getNom();
+                    date[1]=nomcours+","+typecours;
+                    //case 3
+                    Seance_enseignants sens = new Seance_enseignants();
+                    Seance_enseignantsDAO sensd = new Seance_enseignantsDAO();
+                    sens = sensd.find(seance.getId());
+                    Utilisateur enseign = new Utilisateur();
+                    UtilisateurDAO enseignd = new UtilisateurDAO();
+                    enseign = enseignd.findNom(sens.getId_enseignant());
+                    String enseignant = enseign.getNom();
+                    Groupe gro = new Groupe();
+                    GroupeDAO grd = new GroupeDAO();
+                    gro = grd.findId(valeur2);
+                    date[2]=enseignant+","+gro.getNom();
+                    //case 4 
+                    Salle s = new Salle();
+                    SalleDAO sad = new SalleDAO();
+                    Seance_salles sesa = new Seance_salles();
+                    Seance_sallesDAO sesad = new Seance_sallesDAO();
+                    //on cherche l'id de la salle correspondant a cette seance
+                    sesa = sesad.find(seance.getId());
+                    //on cherche la salle correspondant à cet id 
+                    s=sad.find(sesa.getId_salle());
+                    String salle = s.getNom();
+                    Site si = new Site();
+                    SiteDAO sid = new SiteDAO();
+                    si=sid.find(s.getId_site());
+                    String site = si.getNom();     
+                    date[3] = salle+","+site;
+                
+                    if(seance.getHeure_debut() ==800) {
+                        donnees[0][2]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
+                    } else if(seance.getHeure_debut() ==930) {
+                        donnees[1][2]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1100){
+                        donnees[2][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1230){
+                        donnees[3][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1400){
+                        donnees[4][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1530){
+                        donnees[5][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1700){
+                        donnees[6][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
+                    } else if (seance.getHeure_debut()==1830){
+                        donnees[7][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                    }
+                    for(int i=0;i<4;i++){
+                        System.out.println(date[i]);
+                    }
+                } 
+                /*for(int i=0;i<4;i++){
+                    for(int j=0;j<6;j++){
+                        System.out.println(donnees[i][j]);
+                    }
+                }*/
+                table.setVisible(true);
+            }
+            else if((valeur!=null&&valeur2!=null)&&(valeur!="Enseignants"&&valeur2!="Groupes")){ //filtre croise
+                Utilisateur u = new Utilisateur();
+                UtilisateurDAO ud = new UtilisateurDAO();
+                Enseignant e = new Enseignant();
+                EnseignantDAO ed = new EnseignantDAO();
+                u=ud.findId(valeur);
+                Groupe g = new Groupe();
+                GroupeDAO gd = new GroupeDAO();
+                g=gd.findId(valeur2);
+                Seance_enseignants se = new Seance_enseignants();
+                List<Seance_enseignants> obj = new ArrayList<>();
+                Seance_enseignantsDAO sed = new Seance_enseignantsDAO();
+                obj=sed.findList(u.getId());
+                List<Seance_groupes> sg = new ArrayList<>();
+                Seance_groupesDAO sgd = new Seance_groupesDAO();
+                sg=sgd.find(g.getId());
+                Seance seance = new Seance();
+                SeanceDAO seanced = new SeanceDAO();
+                int idSeance=0;
+                for(Seance_groupes it : sg){
+                    for(Seance_enseignants iterator : obj){
+                        Object[] date = new String[4];
+                        //case 1
+                        idSeance = it.getId_seance();
+                        seance= seanced.find(idSeance);
+                        String etat;
+                        if(seance.getEtat()==1){
+                            etat = "En cours de validation";
+                        }else if(seance.getEtat()==2){
+                            etat = "validé";
+                        }else {
+                            etat = "annulé";
+                        }
+                        date [0]=etat;
+                        //case 2
+                        Cours cours = new Cours();
+                        CoursDAO coursd = new CoursDAO();
+                        cours= coursd.find(seance.getId_cours());
+                        String nomcours = cours.getNom();
+                        Type_cours type = new Type_cours();
+                        Type_coursDAO typed = new Type_coursDAO();
+                        type = typed.find(seance.getId_type());
+                        String typecours = type.getNom();
+                        date[1]=nomcours+","+typecours;
+                        //case 3
+                        Seance_enseignants sens = new Seance_enseignants();
+                        Seance_enseignantsDAO sensd = new Seance_enseignantsDAO();
+                        sens = sensd.find(seance.getId());
+                        Utilisateur enseign = new Utilisateur();
+                        UtilisateurDAO enseignd = new UtilisateurDAO();
+                        enseign = enseignd.findNom(sens.getId_enseignant());
+                        String enseignant = enseign.getNom();
+                        Groupe gro = new Groupe();
+                        GroupeDAO grd = new GroupeDAO();
+                        gro = grd.findId(valeur2);
+                        date[2]=enseignant+","+gro.getNom(); //ou valeur a la place de enseignant
+                        //case 4 
+                        Salle s = new Salle();
+                        SalleDAO sad = new SalleDAO();
+                        Seance_salles sesa = new Seance_salles();
+                        Seance_sallesDAO sesad = new Seance_sallesDAO();
+                        //on cherche l'id de la salle correspondant a cette seance
+                        sesa = sesad.find(seance.getId());
+                        //on cherche la salle correspondant à cet id 
+                        s=sad.find(sesa.getId_salle());
+                        String salle = s.getNom();
+                        Site si = new Site();
+                        SiteDAO sid = new SiteDAO();
+                        si=sid.find(s.getId_site());
+                        String site = si.getNom();     
+                        date[3] = salle+","+site;
+                        
+                        if(seance.getHeure_debut() ==800) {
+                        donnees[0][2]="<html>" + date[0] +"<br>" + date[1]  +"<br>" +date[2] + "<br>" +date[3] +"</html>";
+                        } else if(seance.getHeure_debut() ==930) {
+                            donnees[1][2]="<html>" + date[0]  +"<br>" + date[1]  +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        } else if (seance.getHeure_debut()==1100){
+                            donnees[2][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        } else if (seance.getHeure_debut()==1230){
+                            donnees[3][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        } else if (seance.getHeure_debut()==1400){
+                            donnees[4][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        } else if (seance.getHeure_debut()==1530){
+                            donnees[5][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        } else if (seance.getHeure_debut()==1700){
+                            donnees[6][2]="<html>" + date[0] +"<br>" + date[1] +"<br>" +date[2]+  "<br>" +date[3] +"</html>";
+                        } else if (seance.getHeure_debut()==1830){
+                            donnees[7][2]="<html>" + date[0]  +"<br>" + date[1] +"<br>" +date[2] +  "<br>" +date[3] +"</html>";
+                        }
+                        for(int i=0;i<4;i++){
+                            System.out.println(date[i]);
+                        }
+                    }
+                }
+                table.setVisible(true);
+            }
+            else if((valeur==null&&valeur2==null)||(valeur=="Enseignants"&&valeur2=="Groupes")){
+                table.setVisible(true);
+            }
+            
         }
     }
 }
