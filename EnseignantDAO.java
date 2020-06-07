@@ -8,6 +8,9 @@ package modele;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -54,4 +57,37 @@ public class EnseignantDAO extends DAO<Enseignant>{
         
         return obj;   
     }
+    
+    public List<Enseignant> findAll(){
+        List<Enseignant> obj= new ArrayList<>();
+        Statement statement = null;
+        ResultSet result  = null;
+        try { 
+            String sql="SELECT * FROM enseignant";
+            statement = this.connect.createStatement();
+            result=statement.executeQuery(sql);
+            Enseignant util = null;
+
+            while(result.next()){
+                util = new Enseignant();
+                util.setId_utilisateur(result.getInt(1));
+                util.setId_cours(result.getInt(2));
+               
+                
+
+                obj.add(util);
+            }
+
+            for(Enseignant ut : obj){
+                System.out.println(ut.getId_utilisateur());
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return obj;
+    }
+    
+    
 }

@@ -31,6 +31,23 @@ public class Seance_sallesDAO extends DAO<Seance_salles>{
 	    }
 	    return obj;
     }
+    
+     public Seance_salles createS(Seance se, Salle sal) {
+         Seance_salles obj = new Seance_salles();
+        try {
+            PreparedStatement prepare = this.connect
+                    .prepareStatement("INSERT INTO seance_salles (Id_seance, Id_salles) VALUES(?,?)");
+				prepare.setInt(1, se.getId());
+                                prepare.setInt(2, sal.getId());
+				
+				
+				prepare.executeUpdate();
+				
+	    } catch (SQLException e) {
+	            e.printStackTrace();
+	    }
+	    return obj;
+    }
 
 
     public Seance_salles update(Seance_salles obj) {

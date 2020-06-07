@@ -18,15 +18,20 @@ import java.util.List;
 public class Seance_enseignantsDAO extends DAO<Seance_enseignants> {
 
     
-    public Seance_enseignants create(Seance_enseignants obj) {
+    public Seance_enseignants createS(Seance se, Enseignant en) {
+        Seance_enseignants obj = new Seance_enseignants();
         try {
+            
+            ResultSet result = null;
             PreparedStatement prepare = this.connect
                     .prepareStatement("INSERT INTO seance_enseignants (Id_seance, Id_enseignant) VALUES(?,?)");
-				prepare.setInt(1, obj.getId_seance());
-                                prepare.setInt(2, obj.getId_enseignant());
+				prepare.setInt(1, se.getId());
+                                prepare.setInt(2, en.getId_utilisateur());
 				
 				
 				prepare.executeUpdate();
+          
+           
 				
 	    } catch (SQLException e) {
 	            e.printStackTrace();
@@ -130,5 +135,10 @@ public class Seance_enseignantsDAO extends DAO<Seance_enseignants> {
         }
         
         return obj;
+    }
+
+    @Override
+    public Seance_enseignants create(Seance_enseignants obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

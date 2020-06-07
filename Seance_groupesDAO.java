@@ -18,12 +18,13 @@ import java.util.List;
  */
 public class Seance_groupesDAO extends DAO<Seance_groupes>{
 
-    public Seance_groupes create(Seance_groupes obj) {
+    public Seance_groupes createS(Seance se, Groupe gr) {
+        Seance_groupes obj = new Seance_groupes();
         try {
             PreparedStatement prepare = this.connect
                     .prepareStatement("INSERT INTO seance_groupes (Id_seance, Id_groupe) VALUES(?,?)");
-				prepare.setInt(1, obj.getId_seance());
-                                prepare.setInt(2, obj.getId_groupe());
+				prepare.setInt(1, se.getId());
+                                prepare.setInt(2, gr.getId());
 				
 				
 				prepare.executeUpdate();
@@ -129,6 +130,11 @@ public class Seance_groupesDAO extends DAO<Seance_groupes>{
         }
         
         return obj;
+    }
+
+    @Override
+    public Seance_groupes create(Seance_groupes obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

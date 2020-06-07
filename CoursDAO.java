@@ -58,4 +58,32 @@ public class CoursDAO extends DAO<Cours>{
         return obj;
     }
     
+    
+    public Cours findId(String nom){
+        Cours obj = new Cours();
+        ResultSet result  = null;
+        //obligation de mettre sous le format date spécial sql
+        
+        try {
+                 
+            PreparedStatement prepare = this.connect
+                    .prepareStatement("SELECT * FROM cours WHERE Nom=? ");
+            prepare.setString(1, nom);
+            
+            
+            result=prepare.executeQuery();
+            
+            while(result.next()){
+                obj.setId(result.getInt(1));
+                obj.setNom(result.getString(2));
+            }    
+            
+            //System.out.println(obj.getId());
+            
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        return obj;
+    }
 }
