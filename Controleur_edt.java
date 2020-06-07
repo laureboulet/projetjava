@@ -161,6 +161,8 @@ public class Controleur_edt {
             Modele mod = new Modele(donnees,entetes);
 
             Edt table = new Edt(mod);
+            Controleur_recap recap = new Controleur_recap(ut,table.recap);
+
             
             table.setVisible(true);
         }

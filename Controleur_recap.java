@@ -29,8 +29,13 @@ import vue.Recapitulatif;
 public class Controleur_recap {
     public Controleur_recap(){
         
-    }
-    public Controleur_recap(Utilisateur ut){
+    }    
+    /**
+     * Constructeur pour le recapitulatif
+     * @param ut
+     * @param tab 
+     */
+    public Controleur_recap(Utilisateur ut, Recapitulatif tab){
         int droit = ut.getDroit();
         if(droit==4){
             Etudiant e = new Etudiant(ut.getId());
@@ -63,23 +68,33 @@ public class Controleur_recap {
             for(Seance_groupes it : obj){
                 //on récupère l'id de la seance
                 seance=seanced.find(it.getId_seance());
-                
+
                 //case 1 afficher les differentes matieres
                 Cours cours = new Cours();
                 CoursDAO coursd = new CoursDAO();
                 cours= coursd.find(seance.getId_cours());
                 String nomcours = cours.getNom();
                 if (Collections.frequency(matiere,nomcours)==0){
+
                     matiere.add(nomcours);
                     data[i][0]=nomcours;
+                    data[i][4] = 1;
+                    data[i][3] = "1.5";
+
                     i++;
                 }else{
-                    
-                    
+                    int alo = 0;
+                    for(String maMatiere : matiere){
+                        if(maMatiere.equals(nomcours)){
+                            data[alo][4] = (Integer) data[alo][4] + 1;
+                            data[alo][3] = String.valueOf(Float.parseFloat((String) data[alo][3]) + (float)0.5);
+                        }
+                        alo = alo +1;
+                    }
+
                 }
                 
-                
-                
+             
                 //case 2 premiere seance
                 //seance.getHeure_debut();
                 //case 3 derniere seance
@@ -89,15 +104,11 @@ public class Controleur_recap {
                 
             }
             
-            
-                String[] header = {"Matières","Première séance","Dernière séance","Durée","Nb."};
-                Modele model2 = new Modele(data,header);
+  
                 
-                Recapitulatif tab = new Recapitulatif();
                 tab.SetData(data);
-                //tab.tableau2 = new JTable(model2);
-                tab.setVisible(true);
-               
+
+           
             for(String it2: matiere){
                     System.out.println("matiere : "+it2);
                 }

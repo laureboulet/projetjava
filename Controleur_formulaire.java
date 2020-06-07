@@ -55,7 +55,7 @@ public class Controleur_formulaire {
             }
             else{
                 form.setVisible(false);
-                Controleur_recap recap = new Controleur_recap(ut);
+                
                 Controleur_edt edt = new Controleur_edt(ut);
                 
             }
