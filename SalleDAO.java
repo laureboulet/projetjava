@@ -33,6 +33,11 @@ public class SalleDAO extends DAO<Salle>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    /**
+     * on récupère un objet salle avec toutes ses caractériqtiques à partir de son id
+     * @param id
+     * @return 
+     */
     public Salle find(int id) {
         Salle obj = new Salle();
         ResultSet result  = null;
@@ -62,7 +67,12 @@ public class SalleDAO extends DAO<Salle>{
         
         return obj;
     }
-    
+   
+    /**
+     * on récupère un objet salle avec toutes ses caractéristiques à partir de son nom
+     * @param nom
+     * @return 
+     */
     public Salle findId(String nom) {
         Salle obj = new Salle();
         ResultSet result  = null;
@@ -93,6 +103,10 @@ public class SalleDAO extends DAO<Salle>{
         return obj;
     }
     
+    /**
+     * on récupère l'ensemble des salles
+     * @return 
+     */
     public List<Salle> findAll(){
         List<Salle> obj= new ArrayList<>();
         Statement statement = null;

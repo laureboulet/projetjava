@@ -19,13 +19,20 @@ public class Cours {
         
     }
     
-    //constructeurs avec attributs
+    /**constructeurs avec attributs
+     * 
+     * @param id
+     * @param nom 
+     */
     public Cours(int id, String nom){
         this.id = id;
         this.nom = nom;
     }
     
-    //methodes pour recupérer les attributs
+    /**methodes pour recupérer les attributs
+     * 
+     * @return 
+     */
     public int getId(){
         return id;
     }
@@ -34,11 +41,18 @@ public class Cours {
         return nom;
     }
     
-    //methodes pour mettre à jour des valeurs d'attributs
+    /**methodes pour mettre à jour des valeurs d'attributs
+     * on affecte une valeur a la variable nom
+     * @param id 
+     */
     public void setId(int id){
         this.id = id;
     }
     
+    /**on affecte une valeur a la variable nom
+     * 
+     * @param nom 
+     */
     public void setNom(String nom){
         this.nom = nom;
     }

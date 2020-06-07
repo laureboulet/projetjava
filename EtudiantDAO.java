@@ -25,7 +25,12 @@ public class EtudiantDAO extends DAO<Etudiant>{
     }
 
     
-    //on cherche le groupe d'un etudiant pour un id utilisateur donné 
+    
+    /**on cherche le groupe d'un etudiant pour un id utilisateur donné 
+     * 
+     * @param id
+     * @return 
+     */
     public Etudiant find(int id) {
         Etudiant obj= new Etudiant();
         ResultSet result  = null;

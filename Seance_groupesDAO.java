@@ -18,6 +18,12 @@ import java.util.List;
  */
 public class Seance_groupesDAO extends DAO<Seance_groupes>{
 
+    /**
+     * on crée un objet seance groupe dans la bbd a partir d'une seance et d'un groupe
+     * @param se
+     * @param gr
+     * @return 
+     */
     public Seance_groupes createS(Seance se, Groupe gr) {
         Seance_groupes obj = new Seance_groupes();
         try {
@@ -35,6 +41,11 @@ public class Seance_groupesDAO extends DAO<Seance_groupes>{
 	    return obj;
     }
 
+    /**
+     * on met a jour une seance groupe (souvent le groupe pour une seance)
+     * @param obj
+     * @return 
+     */
     public Seance_groupes update(Seance_groupes obj) {
         Seance_groupes se = new Seance_groupes();
         ResultSet result  = null;
@@ -62,6 +73,10 @@ public class Seance_groupesDAO extends DAO<Seance_groupes>{
     
     }
 
+    /**
+     * on supprime un objet seance_groupes (un element de la table)
+     * @param obj 
+     */
     public void delete(Seance_groupes obj) {
         try{
             PreparedStatement prepare = this.connect
@@ -76,6 +91,11 @@ public class Seance_groupesDAO extends DAO<Seance_groupes>{
         }
     }
     
+    /**
+     * on recupère la liste des seances pour un groupe donné 
+     * @param groupe
+     * @return 
+     */
     public List<Seance_groupes> find(int groupe){
         List<Seance_groupes> obj= new ArrayList<>();
         ResultSet result  = null;
@@ -104,6 +124,11 @@ public class Seance_groupesDAO extends DAO<Seance_groupes>{
         return obj;
     }
     
+    /**
+     * on recupère un objet Seance_groupes et toutes ses données à partir de son idee de seance
+     * @param id
+     * @return 
+     */
     public Seance_groupes findS(int id) {
         Seance_groupes obj = new Seance_groupes();
         ResultSet result  = null;

@@ -19,7 +19,11 @@ import java.util.logging.Logger;
  * @author laure et clemence
  */
 public class UtilisateurDAO extends DAO<Utilisateur>{
-    
+    /**
+     * cree un utilisateur dans la bdd (ligne de la table)
+     * @param obj
+     * @return 
+     */
     public Utilisateur create(Utilisateur obj){
         try {
             PreparedStatement prepare = this.connect
@@ -41,6 +45,11 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
     
     
     //find par rapport au nom
+    /**
+     * trouve tous les utilisateurs ayant le meme nom
+     * @param nom
+     * @return 
+     */
     public List<Utilisateur> find(String nom){
         List<Utilisateur> obj= new ArrayList<>();
         Statement statement = null;
@@ -76,6 +85,12 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
 
     
      //find par rapport a l'email+passwd
+    /**
+     * trouve un utilisateur à partir de son email et son mot de passe
+     * @param email
+     * @param mdp
+     * @return 
+     */
     public Utilisateur login(String email, String mdp){
         Utilisateur obj= new Utilisateur();
         ResultSet result  = null;
@@ -111,6 +126,11 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
         return obj;
     }
 
+    /**
+     * trouve un utilisateur à partir de son id
+     * @param id
+     * @return 
+     */
      public Utilisateur findNom(int id){
         Utilisateur obj= new Utilisateur();
         ResultSet result  = null;
@@ -140,6 +160,11 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
         return obj;
     }
     
+     /**
+      * modifie un utilisateur à partir de son nom
+      * @param obj
+      * @return 
+      */
     public Utilisateur update(Utilisateur obj){
         try{
             PreparedStatement prepare = this.connect
@@ -155,6 +180,10 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
         return obj;
     }
     
+    /**
+     * supprime un utilisateur de la bdd (ligne dans la table)
+     * @param obj 
+     */
     public void delete(Utilisateur obj){
         try{
             PreparedStatement prepare = this.connect
@@ -168,6 +197,11 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
         }
     }
     
+    /**
+     * trouve un utlisateur à partir de son nom
+     * @param nom
+     * @return 
+     */
     public Utilisateur findId(String nom){
         Utilisateur obj = new Utilisateur();
         ResultSet result  = null;

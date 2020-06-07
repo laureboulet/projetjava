@@ -26,19 +26,35 @@ public class Promotion {
     }
     
     //methodes pour récupérer toutes les attributs
+    /**
+     * on recupère l'id
+     * @return 
+     */
     public int getId(){
         return id;
     }
     
+    /**
+     * on recupère le nom
+     * @return 
+     */
     public String getNom(){
         return nom;
     }
     
     //methodes pour mettre à jour des valeurs d'attributs
+    /**
+     * on rentre l'id
+     * @param id 
+     */
     public void setId(int id){
         this.id = id;
     }
     
+    /**
+     * on rentre le nom
+     * @param nom 
+     */
     public void setNom(String nom){
         this.nom = nom;
     }

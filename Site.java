@@ -15,21 +15,43 @@ public class Site {
     private String nom;
     
     //constructeurs
+    
     public Site(){}
+    /**
+     * constructeur
+     * @param id
+     * @param nom 
+     */
     public Site(int id, String nom){
         this.id = id;
         this.nom = nom;
     }
     //methodes
+    /**
+     * recupère l'id
+     * @return 
+     */
     public int getId(){
         return id;
     }
+    /**
+     * recupere le nom
+     * @return 
+     */
     public String getNom(){
         return nom;
     }
+    /**
+     * rentre l'id
+     * @param id 
+     */
     public void setId(int id){
         this.id = id;
     }
+    /**
+     * rentre le nom
+     * @param nom 
+     */
     public void setNom(String nom){
         this.nom = nom;
     }

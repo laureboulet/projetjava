@@ -33,7 +33,11 @@ public class GroupeDAO extends DAO<Groupe>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    
+    /**
+     * on recupère toutes les informations d'un groupe dans un objet groupe a partir de son id
+     * @param id
+     * @return 
+     */
     public Groupe find(int id) {
         Groupe obj = new Groupe();
         ResultSet result  = null;
@@ -64,6 +68,10 @@ public class GroupeDAO extends DAO<Groupe>{
     }
     
     
+    /**
+     * on recupère l'ensemble dans groupes
+     * @return 
+     */
     public List<Groupe> findAll(){
         List<Groupe> obj= new ArrayList<>();
         Statement statement = null;
@@ -94,6 +102,12 @@ public class GroupeDAO extends DAO<Groupe>{
         return obj;
     }
     
+    
+    /**
+     * on recupère un objet groupe contenant son id à partir de son nom
+     * @param nom
+     * @return 
+     */
     public Groupe findId(String nom){
         Groupe obj = new Groupe();
         ResultSet result  = null;

@@ -22,7 +22,11 @@ public class Type_coursDAO extends DAO<Type_cours>{
     }
 
     
-  
+    /**
+     * trouve un type de cours à partir de son id
+     * @param id
+     * @return 
+     */
     public Type_cours find(int id) {
         Type_cours obj = new Type_cours();
         ResultSet result  = null;
@@ -61,6 +65,11 @@ public class Type_coursDAO extends DAO<Type_cours>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    /**
+     * trouve l'id d'un type de cours à partir de son nom
+     * @param nom
+     * @return 
+     */
     public Type_cours findId(String nom){
         Type_cours obj = new Type_cours();
         ResultSet result  = null;

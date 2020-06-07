@@ -30,6 +30,11 @@ public class CoursDAO extends DAO<Cours>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    /**
+     * On récupère un objet cours contenant toutes les informations necessaires avec pour paramètre l'id du cours
+     * @param id
+     * @return 
+     */
     public Cours find(int id){
         Cours obj = new Cours();
         ResultSet result  = null;
@@ -59,6 +64,11 @@ public class CoursDAO extends DAO<Cours>{
     }
     
     
+    /**
+     *  On récupère un objet cours contenant toutes les informations necessaires avec pour paramètre le nom du cours
+     * @param nom
+     * @return 
+     */
     public Cours findId(String nom){
         Cours obj = new Cours();
         ResultSet result  = null;

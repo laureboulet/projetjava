@@ -27,7 +27,10 @@ public class Connexion {
     //objet de connection
     public static Connection connect;
     
-    //retourne l'instance ou la crée si elle n'existe pas
+    /**retourne l'instance ou la crée si elle n'existe pas
+     * 
+     * @return 
+     */
     public static Connection getInstance(){
         try{
             Class.forName("com.mysql.jdbc.Driver");

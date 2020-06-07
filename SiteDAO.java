@@ -30,7 +30,11 @@ public class SiteDAO extends DAO<Site>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    
+    /**
+     * trouve un site a partir de son id
+     * @param id
+     * @return 
+     */
     public Site find(int id) {
         Site obj = new Site();
         ResultSet result  = null;

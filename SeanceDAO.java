@@ -16,7 +16,11 @@ import java.sql.Date;
  */
 public class SeanceDAO extends DAO<Seance>{
 
-    
+    /**
+     * on ajoute un objet seance dans la bdd
+     * @param obj
+     * @return 
+     */
     public Seance create(Seance obj) {
         /*long date = obj.getDate().getTime();
         java.sql.Date date2 = new java.sql.Date(date);*/
@@ -40,7 +44,12 @@ public class SeanceDAO extends DAO<Seance>{
 	    return obj;    
     }
 
-    //methode qui permet de mettre a jour une seance avec toutes les données sur la base de son ID
+    
+    /**methode qui permet de mettre a jour une seance avec toutes les données sur la base de son ID
+     * 
+     * @param obj
+     * @return 
+     */
     public Seance update(Seance obj) {
         long date = obj.getDate().getTime();
         java.sql.Date date2 = new java.sql.Date(date);
@@ -65,7 +74,12 @@ public class SeanceDAO extends DAO<Seance>{
     }
     
     
-    //methode qui trouve une seance avec ses données (toutes sauf l'id) nous permet de determiner justement cet id
+  
+    /**methode qui trouve une seance avec ses données (toutes sauf l'id) nous permet de determiner justement cet id
+     * 
+     * @param id
+     * @return 
+     */
     public Seance find(int id){
         Seance obj = new Seance();
         ResultSet result  = null;
@@ -88,7 +102,7 @@ public class SeanceDAO extends DAO<Seance>{
             
             while(result.next()){
                 obj.setId(result.getInt(1));
-                //obj.setDate(dat);
+                obj.setDate(result.getDate(3));
                 obj.setHeure_debut(result.getInt(4));
                 obj.setHeure_fin(result.getInt(5));
                 obj.setEtat(result.getInt(6));
@@ -111,7 +125,11 @@ public class SeanceDAO extends DAO<Seance>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    
+    /**
+     * on recupere un objet seance avec toutes ses informations à partir d'un objet senace contenant un certain nombre d'informations
+     * @param obj
+     * @return 
+     */
     public Seance findId(Seance obj){
         ResultSet result  = null;
         //obligation de mettre sous le format date spécial sql

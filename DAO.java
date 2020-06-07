@@ -36,13 +36,18 @@ public abstract class DAO<T> {
      */
     //public abstract T find(String nom);
     
-    //Met à jour les données
-    //@param obj
-    //@return T
+    /**
+    * Met à jour les données
+    *@param obj
+    *@return T
+    */
     public abstract T update(T obj);
     
-    //supprime dans la BDD
-    //@param obj
+    
+    /**supprime dans la BDD
+     * 
+     * @param obj 
+     */
     public abstract void delete(T obj);
     
 }

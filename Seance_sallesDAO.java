@@ -16,6 +16,11 @@ import java.sql.SQLException;
 public class Seance_sallesDAO extends DAO<Seance_salles>{
 
  
+    /**
+     * on crée un objet seance_salles dans la bdd (une nouvelle ligne a la table)
+     * @param obj
+     * @return 
+     */
     public Seance_salles create(Seance_salles obj) {
         try {
             PreparedStatement prepare = this.connect
@@ -32,6 +37,12 @@ public class Seance_sallesDAO extends DAO<Seance_salles>{
 	    return obj;
     }
     
+    /**
+     * on crée un objet seance_salles dans la bdd (une nouvelle ligne a la table) à partir d'une seance et d'une salle pour respecter les contraintes de clés etrangeres
+     * @param se
+     * @param sal
+     * @return 
+     */
      public Seance_salles createS(Seance se, Salle sal) {
          Seance_salles obj = new Seance_salles();
         try {
@@ -50,6 +61,11 @@ public class Seance_sallesDAO extends DAO<Seance_salles>{
     }
 
 
+     /**
+      * met a jour un objet (lignet table) seance_salles (souvent mise a jour d'une salle pour une seance donnee)
+      * @param obj
+      * @return 
+      */
     public Seance_salles update(Seance_salles obj) {
         Seance_salles se = new Seance_salles();
         ResultSet result  = null;
@@ -78,6 +94,10 @@ public class Seance_sallesDAO extends DAO<Seance_salles>{
     }
 
 
+    /**
+     * suppression d'un objet seance_salles dans la bbd (ligne de la table)
+     * @param obj 
+     */
     public void delete(Seance_salles obj) {
         try{
             PreparedStatement prepare = this.connect
@@ -93,6 +113,11 @@ public class Seance_sallesDAO extends DAO<Seance_salles>{
 
     }
     
+    /**
+     *trouver une salle a partir de l'id de la seance
+     * @param id
+     * @return 
+     */
     public Seance_salles find(int id) {
         Seance_salles obj = new Seance_salles();
         ResultSet result  = null;

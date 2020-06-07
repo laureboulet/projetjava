@@ -33,7 +33,11 @@ public class EnseignantDAO extends DAO<Enseignant>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    //on cherche le groupe d'un enseignant pour un id utilisateur donné 
+    /**on cherche le groupe d'un enseignant pour un id utilisateur donné 
+     * 
+     * @param id
+     * @return 
+     */
     public Enseignant find(int id) {
         Enseignant obj= new Enseignant();
         ResultSet result  = null;
@@ -58,6 +62,10 @@ public class EnseignantDAO extends DAO<Enseignant>{
         return obj;   
     }
     
+    /**
+     * on récupère tous les enseignants
+     * @return 
+     */
     public List<Enseignant> findAll(){
         List<Enseignant> obj= new ArrayList<>();
         Statement statement = null;

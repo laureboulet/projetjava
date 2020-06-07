@@ -17,7 +17,12 @@ import java.util.List;
  */
 public class Seance_enseignantsDAO extends DAO<Seance_enseignants> {
 
-    
+    /**
+     * on cree un objet seance_groupe à partir d'une seance et d'un enseignant
+     * @param se
+     * @param en
+     * @return 
+     */
     public Seance_enseignants createS(Seance se, Enseignant en) {
         Seance_enseignants obj = new Seance_enseignants();
         try {
@@ -40,6 +45,11 @@ public class Seance_enseignantsDAO extends DAO<Seance_enseignants> {
     }
 
   
+    /**
+     * on met a jour un objet seance enseignant 
+     * @param obj
+     * @return 
+     */
     public Seance_enseignants update(Seance_enseignants obj) {
         Seance_enseignants se = new Seance_enseignants();
         ResultSet result  = null;
@@ -67,6 +77,10 @@ public class Seance_enseignantsDAO extends DAO<Seance_enseignants> {
     }
 
 
+    /**
+     * on supprime un objet seance enseignant
+     * @param obj 
+     */
     public void delete(Seance_enseignants obj) {
         try{
             PreparedStatement prepare = this.connect
@@ -81,6 +95,11 @@ public class Seance_enseignantsDAO extends DAO<Seance_enseignants> {
         }
     }
     
+    /**
+     * on recupère un objet select_enseignant avec toutes ses donnees à partir de son id
+     * @param id
+     * @return 
+     */
     public Seance_enseignants find(int id) {
         Seance_enseignants obj = new Seance_enseignants();
         ResultSet result  = null;
@@ -109,6 +128,11 @@ public class Seance_enseignantsDAO extends DAO<Seance_enseignants> {
         return obj;
     }
     
+    /**
+     * on recupère la liste de toutes les seances pour un enseignant donné 
+     * @param id
+     * @return 
+     */
     public List<Seance_enseignants> findList(int id){
         List<Seance_enseignants> obj= new ArrayList<>();
         ResultSet result  = null;
