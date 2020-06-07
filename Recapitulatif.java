@@ -24,9 +24,13 @@ public class Recapitulatif extends JPanel{
     //private JLabel filtreLabel;
     //private JButton btnfiltre;
     //private JPanel f;
-    
+    public String[] header = {"Matières","Première séance","Dernière séance","Durée","Nb."};
+    /**
+     * constructeur
+     */
     public Recapitulatif(){
         //creation du tableau d'affichage des récapitulatifs des cours
+        
         Object[][] data = { 
                     {"","","","",""},
                     {"","","","",""},
@@ -39,9 +43,9 @@ public class Recapitulatif extends JPanel{
                     {"","","","",""},
                     {"","","","",""}};
         //ou alors juste List<Seance> seances = new ArrayList<Seance>();
-        String[] header = {"Matières","Première séance","Dernière séance","Durée","Nb."};
+        
         Modele model2 = new Modele(data,header);
-        tableau2 = new JTable(model2);
+        tableau2 = new JTable(model2); 
         /*f = new JPanel();
         btnfiltre = new JButton("Filtrer");
         btnfiltre.setSize(125,30);
@@ -54,6 +58,12 @@ public class Recapitulatif extends JPanel{
         setLayout(new BorderLayout());
         //add(f,BorderLayout.NORTH);
         add(new JScrollPane(tableau2),BorderLayout.CENTER);
+       
     }
     
+    public void SetData(Object[][] data){
+        System.out.println("wesh c'est ttl " + data[0][0] );
+        tableau2.setModel(new Modele(data,header));
+        
+    }
 }

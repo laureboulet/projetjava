@@ -31,7 +31,9 @@ public class Formulaire extends JFrame{
     public JPanel pan;
     public Edt table = new Edt();
     
-    
+    /**
+     * constructeur
+     */
     public Formulaire(){
         this.setBounds(500,200,350,200);
         this.setTitle("Connexion à votre emploi du temps");

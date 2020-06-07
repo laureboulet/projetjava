@@ -17,6 +17,17 @@ public class MajInfo {
     public String date,heures;
 
     public MajInfo(){}
+    /**
+     * constructeur
+     * @param etat
+     * @param nom
+     * @param type
+     * @param enseignant
+     * @param groupe
+     * @param salle
+     * @param date
+     * @param heures 
+     */
     public MajInfo(String etat, String nom, String type, String enseignant, String groupe, String salle, String date, String heures){
       if(etat.equals("Validée")){
           this.etat=2;
@@ -34,6 +45,10 @@ public class MajInfo {
       this.heures = heures;
     }
 
+    /**
+     * affichage
+     * @return 
+     */
     public String toString(){
       String str;
       if(this.etat != 0 && this.nom != null && this.type != null && this.enseignant != null && this.groupe != null && this.salle != null && this.date != null && this.heures != null){

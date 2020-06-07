@@ -42,6 +42,12 @@ public class Maj extends JDialog{
     public JPanel control = new JPanel();
     public JButton okBouton = new JButton("OK");
     
+    /**
+     * constructeur
+     * @param parent
+     * @param title
+     * @param modal 
+     */
     public Maj(JFrame parent, String title, boolean modal){
         //On appelle le construteur de JDialog correspondant
         super(parent, title, modal);
@@ -57,12 +63,19 @@ public class Maj extends JDialog{
     }
     
     //cas ou notreMaj renverra le contenu
+    /**
+     * donnees affichées
+     * @return 
+     */
     public MajInfo showMaj(){
         this.sendData = false;
         this.setVisible(true);
         return this.info;
     }
     
+    /**
+     * champs à remplir
+     */
     public void initComponent(){
     
     //L'etat de la séance

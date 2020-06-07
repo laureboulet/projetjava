@@ -16,6 +16,16 @@ import javax.swing.table.DefaultTableCellRenderer;
  * @author laure et clemence
  */
 public class TableComponent extends DefaultTableCellRenderer{
+    /**
+     * constructeur
+     * @param table
+     * @param value
+     * @param isSelected
+     * @param hasFocus
+     * @param row
+     * @param column
+     * @return 
+     */
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
     //Si la valeur de la cellule est un JButton, on transtype cette valeur
     if (value instanceof JButton)
