@@ -5,6 +5,8 @@
  */
 package controleur;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import modele.Cours;
@@ -32,6 +34,7 @@ import modele.Type_coursDAO;
 import modele.Utilisateur;
 import modele.UtilisateurDAO;
 import vue.Edt;
+import vue.Maj;
 import vue.Modele;
 
 /**
@@ -158,6 +161,7 @@ public class Controleur_edt {
 
             Edt table = new Edt(mod);
             table.setVisible(true);
+            
         }
         else if(droit==3){
             Enseignant ens = new Enseignant(ut.getId());
@@ -294,7 +298,19 @@ public class Controleur_edt {
 
             Edt table = new Edt(mod);
             table.setVisible(true);
-            
+            //on affiche le menu de modifications visibles pour l'administrateur uniquement
+            table.cours4.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent arg0) {
+                Maj nouv = null;
+                nouv = new Maj(table.ajouter, "Ajouter une séance", true);
+                //nouv.setVisible(true);
+                Controleur_maj ctrl = new Controleur_maj(ut,nouv);
+            }         
+        }); 
+            table.menu.add(table.cours);
+            table.menu.add(table.groupes);
+            table.menu.add(table.enseignants);
+            table.menu.add(table.salles);
         }
     }
 }
